@@ -14,6 +14,7 @@
 #include "nsIDOMClientInformation.h"
 #include "nsIDOMNavigatorBattery.h"
 #include "nsIDOMNavigatorSms.h"
+#include "nsIDOMNavigatorMms.h"
 #include "nsIDOMNavigatorNetwork.h"
 #include "nsAutoPtr.h"
 #include "nsWeakReference.h"
@@ -53,6 +54,10 @@ namespace sms {
 class SmsManager;
 } // namespace sms
 
+namespace mms {
+class MmsManager;
+} // namespace mms
+
 namespace network {
 class Connection;
 class MobileConnection;
@@ -69,6 +74,7 @@ class Navigator : public nsIDOMNavigator
                 , public nsIDOMNavigatorDesktopNotification
                 , public nsIDOMMozNavigatorBattery
                 , public nsIDOMMozNavigatorSms
+                , public nsIDOMMozNavigatorMms
 #ifdef MOZ_MEDIA_NAVIGATOR
                 , public nsIDOMNavigatorUserMedia
 #endif
@@ -93,6 +99,7 @@ public:
   NS_DECL_NSIDOMNAVIGATORDESKTOPNOTIFICATION
   NS_DECL_NSIDOMMOZNAVIGATORBATTERY
   NS_DECL_NSIDOMMOZNAVIGATORSMS
+  NS_DECL_NSIDOMMOZNAVIGATORMMS
 #ifdef MOZ_MEDIA_NAVIGATOR
   NS_DECL_NSIDOMNAVIGATORUSERMEDIA
 #endif
@@ -130,6 +137,9 @@ private:
   bool IsSmsAllowed() const;
   bool IsSmsSupported() const;
 
+  bool IsMmsAllowed() const;
+  bool IsMmsSupported() const;
+
   nsRefPtr<nsMimeTypeArray> mMimeTypes;
   nsRefPtr<nsPluginArray> mPlugins;
   nsRefPtr<nsGeolocation> mGeolocation;
@@ -137,6 +147,7 @@ private:
   nsRefPtr<battery::BatteryManager> mBatteryManager;
   nsRefPtr<power::PowerManager> mPowerManager;
   nsRefPtr<sms::SmsManager> mSmsManager;
+  nsRefPtr<mms::MmsManager> mMmsManager;
 #ifdef MOZ_B2G_RIL
   nsCOMPtr<nsIDOMTelephony> mTelephony;
 #endif

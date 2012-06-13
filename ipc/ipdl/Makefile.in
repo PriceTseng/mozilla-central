@@ -27,6 +27,7 @@ IPDLDIRS =  \
   dom/plugins/ipc  \
   dom/ipc  \
   dom/sms/src/ipc \
+  dom/mms/src/ipc \
   dom/src/storage \
   gfx/layers/ipc \
   hal/sandbox \

@@ -80,12 +80,15 @@
 
 #include "mozilla/dom/sms/SmsChild.h"
 
+#include "mozilla/dom/mms/MmsChild.h"
+
 using namespace mozilla::hal_sandbox;
 using namespace mozilla::ipc;
 using namespace mozilla::net;
 using namespace mozilla::places;
 using namespace mozilla::docshell;
 using namespace mozilla::dom::sms;
+using namespace mozilla::dom::mms;
 
 namespace mozilla {
 namespace dom {
@@ -515,6 +518,19 @@ bool
 ContentChild::DeallocPSms(PSmsChild* aSms)
 {
     delete aSms;
+    return true;
+}
+
+PMmsChild*
+ContentChild::AllocPMms()
+{
+    return new MmsChild();
+}
+
+bool
+ContentChild::DeallocPMms(PMmsChild* aMms)
+{
+    delete aMms;
     return true;
 }
 

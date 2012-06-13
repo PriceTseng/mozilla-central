@@ -3559,6 +3559,10 @@ pref("dom.battery.enabled", true);
 pref("dom.sms.enabled", false);
 pref("dom.sms.whitelist", "");
 
+// WebMMS
+pref("dom.mms.enabled", false);
+pref("dom.mms.whitelist", "");
+
 // WebContacts
 pref("dom.mozContacts.enabled", false);
 pref("dom.mozContacts.whitelist", "");

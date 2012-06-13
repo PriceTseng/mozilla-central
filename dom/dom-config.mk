@@ -11,6 +11,7 @@ DOM_SRCDIRS = \
   dom/network/src \
   dom/settings \
   dom/sms/src \
+  dom/mms/src \
   dom/contacts \
   dom/src/events \
   dom/src/storage \

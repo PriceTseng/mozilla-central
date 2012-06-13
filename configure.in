@@ -4307,6 +4307,7 @@ BUILD_CTYPES=1
 MOZ_USE_NATIVE_POPUP_WINDOWS=
 MOZ_ANDROID_HISTORY=
 MOZ_WEBSMS_BACKEND=
+MOZ_WEBMMS_BACKEND=
 MOZ_GRAPHITE=1
 ACCESSIBILITY=1
 
@@ -5191,6 +5192,19 @@ MOZ_ARG_DISABLE_BOOL(websms-backend,
 
 if test -n "$MOZ_WEBSMS_BACKEND"; then
     AC_DEFINE(MOZ_WEBSMS_BACKEND)
+fi
+
+dnl ========================================================
+dnl = Disable WebMMS backend
+dnl ========================================================
+MOZ_ARG_DISABLE_BOOL(webmms-backend,
+[  --disable-webmms-backend
+                           Disable WebMMS backend],
+    MOZ_WEBMMS_BACKEND=,
+    MOZ_WEBMMS_BACKEND=1)
+
+if test -n "$MOZ_WEBMMS_BACKEND"; then
+    AC_DEFINE(MOZ_WEBMMS_BACKEND)
 fi
 
 dnl ========================================================
@@ -8357,6 +8371,7 @@ AC_SUBST(MOZ_METRO)
 
 AC_SUBST(MOZ_ANDROID_HISTORY)
 AC_SUBST(MOZ_WEBSMS_BACKEND)
+AC_SUBST(MOZ_WEBMMS_BACKEND)
 AC_SUBST(ENABLE_STRIP)
 AC_SUBST(PKG_SKIP_STRIP)
 AC_SUBST(STRIP_FLAGS)

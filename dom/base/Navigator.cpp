@@ -32,6 +32,8 @@
 #include "nsIPowerManagerService.h"
 #include "SmsManager.h"
 #include "nsISmsService.h"
+#include "MmsManager.h"
+#include "nsIMmsService.h"
 #include "mozilla/Hal.h"
 #include "nsIWebNavigation.h"
 #include "mozilla/ClearOnShutdown.h"
@@ -98,6 +100,7 @@ NS_INTERFACE_MAP_BEGIN(Navigator)
   NS_INTERFACE_MAP_ENTRY(nsIDOMMozNavigatorBattery)
   NS_INTERFACE_MAP_ENTRY(nsIDOMNavigatorDesktopNotification)
   NS_INTERFACE_MAP_ENTRY(nsIDOMMozNavigatorSms)
+  NS_INTERFACE_MAP_ENTRY(nsIDOMMozNavigatorMms)
 #ifdef MOZ_MEDIA_NAVIGATOR
   NS_INTERFACE_MAP_ENTRY(nsIDOMNavigatorUserMedia)
 #endif
@@ -148,6 +151,11 @@ Navigator::Invalidate()
   if (mSmsManager) {
     mSmsManager->Shutdown();
     mSmsManager = nsnull;
+  }
+
+  if (mMmsManager) {
+    mMmsManager->Shutdown();
+    mMmsManager = nsnull;
   }
 
 #ifdef MOZ_B2G_RIL
@@ -1102,6 +1110,103 @@ Navigator::GetMozSms(nsIDOMMozSmsManager** aSmsManager)
   }
 
   NS_ADDREF(*aSmsManager = mSmsManager);
+
+  return NS_OK;
+}
+
+//*****************************************************************************
+//    Navigator::nsIDOMNavigatorMms
+//*****************************************************************************
+
+bool
+Navigator::IsMmsAllowed() const
+{
+  static const bool defaultMmsPermission = false;
+
+  // First of all, the general pref has to be turned on.
+  if (!Preferences::GetBool("dom.mms.enabled", defaultMmsPermission)) {
+    return false;
+  }
+
+  // In addition of having 'dom.mms.enabled' set to true, we require the
+  // website to be whitelisted. This is a temporary 'security model'.
+  // 'dom.mms.whitelist' has to contain comma-separated values of URI prepath.
+  // For local files, "file://" must be listed.
+  // For data-urls: "moz-nullprincipal:".
+  // Chrome files also have to be whitelisted for the moment.
+  nsCOMPtr<nsPIDOMWindow> win(do_QueryReferent(mWindow));
+
+  if (!win || !win->GetDocShell()) {
+    return defaultMmsPermission;
+  }
+
+  nsCOMPtr<nsIDocument> doc = do_QueryInterface(win->GetExtantDocument());
+  if (!doc) {
+    return defaultMmsPermission;
+  }
+
+  nsCOMPtr<nsIURI> uri;
+  doc->NodePrincipal()->GetURI(getter_AddRefs(uri));
+
+  if (!uri) {
+    return defaultMmsPermission;
+  }
+
+  nsCAutoString uriPrePath;
+  uri->GetPrePath(uriPrePath);
+
+  const nsAdoptingString& whitelist =
+    Preferences::GetString("dom.mms.whitelist");
+
+  nsCharSeparatedTokenizer tokenizer(whitelist, ',',
+                                     nsCharSeparatedTokenizerTemplate<>::SEPARATOR_OPTIONAL);
+
+  while (tokenizer.hasMoreTokens()) {
+    const nsSubstring& whitelistItem = tokenizer.nextToken();
+
+    if (NS_ConvertUTF16toUTF8(whitelistItem).Equals(uriPrePath)) {
+      return true;
+    }
+  }
+
+  // The current page hasn't been whitelisted.
+  return false;
+}
+
+bool
+Navigator::IsMmsSupported() const
+{
+#ifdef MOZ_WEBMMS_BACKEND
+  nsCOMPtr<nsIMmsService> mmsService = do_GetService(MMS_SERVICE_CONTRACTID);
+  NS_ENSURE_TRUE(mmsService, false);
+
+  bool result = false;
+  mmsService->HasSupport(&result);
+
+  return result;
+#else
+  return false;
+#endif
+}
+
+NS_IMETHODIMP
+Navigator::GetMozMms(nsIDOMMozMmsManager** aMmsManager)
+{
+  *aMmsManager = nsnull;
+
+  if (!mMmsManager) {
+    if (!IsMmsSupported() || !IsMmsAllowed()) {
+      return NS_OK;
+    }
+
+    nsCOMPtr<nsPIDOMWindow> window = do_QueryReferent(mWindow);
+    NS_ENSURE_TRUE(window && window->GetDocShell(), NS_OK);
+
+    mMmsManager = new mms::MmsManager();
+    mMmsManager->Init(window);
+  }
+
+  NS_ADDREF(*aMmsManager = mMmsManager);
 
   return NS_OK;
 }

@@ -135,6 +135,9 @@ private:
     virtual PSmsParent* AllocPSms();
     virtual bool DeallocPSms(PSmsParent*);
 
+    virtual PMmsParent* AllocPMms();
+    virtual bool DeallocPMms(PMmsParent*);
+
     virtual PStorageParent* AllocPStorage(const StorageConstructData& aData);
     virtual bool DeallocPStorage(PStorageParent* aActor);
 

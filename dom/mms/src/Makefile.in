@@ -7,9 +7,47 @@ topsrcdir        = @top_srcdir@
 srcdir           = @srcdir@
 VPATH            = \
   $(srcdir) \
+  $(srcdir)/ipc \
   $(NULL)
 
 include $(DEPTH)/config/autoconf.mk
+
+ifdef MOZ_B2G_RIL
+VPATH += $(srcdir)/ril
+else
+VPATH += $(srcdir)/fallback
+endif
+
+LIBRARY_NAME     = dom_mms_s
+LIBXUL_LIBRARY   = 1
+FORCE_STATIC_LIB = 1
+
+include $(topsrcdir)/dom/dom-config.mk
+
+EXPORTS_NAMESPACES = mozilla/dom/mms
+
+EXPORTS_mozilla/dom/mms = \
+  MmsChild.h \
+  MmsParent.h \
+  MmsServicesFactory.h \
+  $(NULL)
+
+CPPSRCS = \
+  MmsChild.cpp \
+  MmsIPCService.cpp \
+  MmsManager.cpp \
+  MmsParent.cpp \
+  MmsServicesFactory.cpp \
+  $(NULL)
+
+LOCAL_INCLUDES = \
+  -I$(topsrcdir)/content/events/src \
+  -I$(topsrcdir)/dom/base \
+  $(NULL)
+
+# Add VPATH to LOCAL_INCLUDES so we are going to include the correct backend
+# subdirectory (and the ipc one).
+LOCAL_INCLUDES += $(VPATH:%=-I%)
 
 ifdef MOZ_B2G_RIL
 EXTRA_COMPONENTS = \
@@ -24,7 +62,12 @@ EXTRA_JS_MODULES = \
   ril/WapPushManager.js \
   ril/WspPduHelper.jsm \
   $(NULL)
+else
+CPPSRCS += \
+  MmsService.cpp \
+  $(NULL)
 endif
 
 include $(topsrcdir)/config/config.mk
+include $(topsrcdir)/ipc/chromium/chromium-config.mk
 include $(topsrcdir)/config/rules.mk

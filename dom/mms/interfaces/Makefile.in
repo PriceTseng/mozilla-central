@@ -11,7 +11,11 @@ include $(DEPTH)/config/autoconf.mk
 
 XPIDL_MODULE = dom_mms
 
+include $(topsrcdir)/dom/dom-config.mk
+
 XPIDLSRCS = \
+  nsIDOMNavigatorMms.idl \
+  nsIDOMMmsManager.idl \
   nsIMmsService.idl \
   nsIWapPushApplication.idl \
   $(NULL)

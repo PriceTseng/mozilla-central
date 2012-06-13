@@ -77,6 +77,7 @@
 #include "nsWidgetsCID.h"
 #include "nsISupportsPrimitives.h"
 #include "mozilla/dom/sms/SmsParent.h"
+#include "mozilla/dom/mms/MmsParent.h"
 #include "nsDebugImpl.h"
 
 static NS_DEFINE_CID(kCClipboardCID, NS_CLIPBOARD_CID);
@@ -90,6 +91,7 @@ using namespace mozilla::places;
 using mozilla::unused; // heh
 using base::KillProcess;
 using namespace mozilla::dom::sms;
+using namespace mozilla::dom::mms;
 
 namespace mozilla {
 namespace dom {
@@ -880,6 +882,19 @@ bool
 ContentParent::DeallocPSms(PSmsParent* aSms)
 {
     delete aSms;
+    return true;
+}
+
+PMmsParent*
+ContentParent::AllocPMms()
+{
+    return new MmsParent();
+}
+
+bool
+ContentParent::DeallocPMms(PMmsParent* aMms)
+{
+    delete aMms;
     return true;
 }
 

@@ -1,0 +1,26 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+include protocol PContent;
+
+namespace mozilla {
+namespace dom {
+namespace mms {
+
+sync protocol PMms {
+    manager PContent;
+
+child:
+    NotifyDummy();
+
+parent:
+    sync HasSupport()
+        returns (bool aHasSupport);
+
+    __delete__();
+};
+
+} // namespace mms
+} // namespace dom
+} // namespace mozilla

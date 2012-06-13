@@ -374,6 +374,9 @@ pref("dom.ipc.browser_frames.oop_by_default", false);
 // Temporary permission hack for WebSMS
 pref("dom.sms.enabled", true);
 
+// Temporary permission hack for WebMMS
+pref("dom.mms.enabled", true);
+
 // Temporary permission hack for WebContacts
 pref("dom.mozContacts.enabled", true);
 

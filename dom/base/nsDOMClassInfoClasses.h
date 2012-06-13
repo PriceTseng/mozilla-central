@@ -409,6 +409,8 @@ DOMCI_CLASS(MozSmsRequest)
 DOMCI_CLASS(MozSmsFilter)
 DOMCI_CLASS(MozSmsCursor)
 
+DOMCI_CLASS(MozMmsManager)
+
 DOMCI_CLASS(MozConnection)
 DOMCI_CLASS(MozMobileConnection)
 

@@ -101,6 +101,9 @@ public:
     virtual PSmsChild* AllocPSms();
     virtual bool DeallocPSms(PSmsChild*);
 
+    virtual PMmsChild* AllocPMms();
+    virtual bool DeallocPMms(PMmsChild*);
+
     virtual PStorageChild* AllocPStorage(const StorageConstructData& aData);
     virtual bool DeallocPStorage(PStorageChild* aActor);
 
