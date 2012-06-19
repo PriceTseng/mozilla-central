@@ -14,7 +14,7 @@ namespace mms {
 class MmsChild : public PMmsChild
 {
 public:
-  NS_OVERRIDE virtual bool RecvNotifyDummy();
+  NS_OVERRIDE virtual bool RecvNotifyDummy(const MmsMessageData &aData);
 };
 
 } // namespace mms

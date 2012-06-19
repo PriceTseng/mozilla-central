@@ -66,6 +66,12 @@ MmsParent::RecvHasSupport(bool* aHasSupport)
   return true;
 }
 
+bool
+MmsParent::RecvSendDummy(const MmsMessageData &aData)
+{
+  return true;
+}
+
 } // namespace mms
 } // namespace dom
 } // namespace mozilla

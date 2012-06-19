@@ -7,6 +7,7 @@
 #include "mozilla/Util.h"
 // On top because they include basictypes.h:
 #include "SmsFilter.h"
+#include "MmsMessage.h"
 
 #ifdef XP_WIN
 #undef GetClassName
@@ -511,6 +512,8 @@ using mozilla::dom::indexedDB::IDBWrapperCache;
 #include "nsIDOMSmsFilter.h"
 #include "nsIDOMSmsCursor.h"
 #include "nsIDOMMmsManager.h"
+#include "nsIDOMMmsMessage.h"
+#include "nsIDOMMmsAttachmentStorage.h"
 #include "nsIDOMConnection.h"
 #include "nsIDOMMobileConnection.h"
 #include "USSDReceivedEvent.h"
@@ -1486,6 +1489,12 @@ static nsDOMClassInfoData sClassInfoData[] = {
   NS_DEFINE_CLASSINFO_DATA(MozMmsManager, nsDOMGenericSH,
                            DOM_DEFAULT_SCRIPTABLE_FLAGS)
 
+  NS_DEFINE_CLASSINFO_DATA(MozMmsMessage, nsDOMGenericSH,
+                           DOM_DEFAULT_SCRIPTABLE_FLAGS)
+
+  NS_DEFINE_CLASSINFO_DATA(MozMmsAttachmentStorage, nsDOMGenericSH,
+                           DOM_DEFAULT_SCRIPTABLE_FLAGS)
+
   NS_DEFINE_CLASSINFO_DATA(MozConnection, nsDOMGenericSH,
                            DOM_DEFAULT_SCRIPTABLE_FLAGS)
 
@@ -1806,6 +1815,7 @@ static const nsConstructorFuncMapData kConstructorFuncMap[] =
   NS_DEFINE_EVENT_CONSTRUCTOR_FUNC_DATA(MozWifiConnectionInfoEvent)
 #endif
   NS_DEFINE_CONSTRUCTOR_FUNC_DATA(MozSmsFilter, sms::SmsFilter::NewSmsFilter)
+  NS_DEFINE_CONSTRUCTOR_FUNC_DATA(MozMmsMessage, mms::MmsMessage::NewMmsMessage)
   NS_DEFINE_CONSTRUCTOR_FUNC_DATA(XMLHttpRequest, NS_XMLHttpRequestCtor)
 };
 
@@ -4151,6 +4161,14 @@ nsDOMClassInfo::Init()
 
   DOM_CLASSINFO_MAP_BEGIN(MozMmsManager, nsIDOMMozMmsManager)
      DOM_CLASSINFO_MAP_ENTRY(nsIDOMMozMmsManager)
+  DOM_CLASSINFO_MAP_END
+
+  DOM_CLASSINFO_MAP_BEGIN(MozMmsMessage, nsIDOMMozMmsMessage)
+     DOM_CLASSINFO_MAP_ENTRY(nsIDOMMozMmsMessage)
+  DOM_CLASSINFO_MAP_END
+
+  DOM_CLASSINFO_MAP_BEGIN(MozMmsAttachmentStorage, nsIDOMMozMmsAttachmentStorage)
+     DOM_CLASSINFO_MAP_ENTRY(nsIDOMMozMmsAttachmentStorage)
   DOM_CLASSINFO_MAP_END
 
   DOM_CLASSINFO_MAP_BEGIN(MozConnection, nsIDOMMozConnection)

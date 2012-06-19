@@ -15,7 +15,9 @@ include $(topsrcdir)/dom/dom-config.mk
 
 XPIDLSRCS = \
   nsIDOMNavigatorMms.idl \
+  nsIDOMMmsAttachmentStorage.idl \
   nsIDOMMmsManager.idl \
+  nsIDOMMmsMessage.idl \
   nsIMmsService.idl \
   nsIWapPushApplication.idl \
   $(NULL)

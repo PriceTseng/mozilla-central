@@ -3,20 +3,51 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 include protocol PContent;
+include "mozilla/dom/mms/Types.h";
+
+using DeliveryState;
+using null_t;
 
 namespace mozilla {
 namespace dom {
 namespace mms {
 
+struct ExpiryValue {
+  bool     isAbsolute;
+  PRUint64 timestamp;
+};
+
+struct MmsMessageData {
+  PRInt32       id;
+  DeliveryState delivery;
+  nsString      from;
+  nsString[]    to;
+  nsString[]    cc;
+  nsString[]    bcc;
+  PRUint64      date;
+  ExpiryValue   expiry;
+  ExpiryValue   deliveryTime;
+  nsString      subject;
+  nsString      messageClass;
+  PRUint16      priority;
+  bool          deliveryReport;
+  bool          readReport;
+  bool          adaptationAllowed;
+  bool          drmContent;
+  bool          read;
+};
+
 sync protocol PMms {
     manager PContent;
 
 child:
-    NotifyDummy();
+    NotifyDummy(MmsMessageData aData);
 
 parent:
     sync HasSupport()
         returns (bool aHasSupport);
+
+    SendDummy(MmsMessageData aData);
 
     __delete__();
 };

@@ -27,15 +27,20 @@ include $(topsrcdir)/dom/dom-config.mk
 EXPORTS_NAMESPACES = mozilla/dom/mms
 
 EXPORTS_mozilla/dom/mms = \
+  Constants.h \
   MmsChild.h \
+  MmsMessage.h \
   MmsParent.h \
   MmsServicesFactory.h \
+  Types.h \
   $(NULL)
 
 CPPSRCS = \
+  MmsAttachmentStorage.cpp \
   MmsChild.cpp \
   MmsIPCService.cpp \
   MmsManager.cpp \
+  MmsMessage.cpp \
   MmsParent.cpp \
   MmsServicesFactory.cpp \
   $(NULL)

@@ -218,6 +218,7 @@ static void Shutdown();
 #include "mozilla/dom/sms/SmsServicesFactory.h"
 #include "nsIMmsService.h"
 #include "mozilla/dom/mms/MmsServicesFactory.h"
+#include "mozilla/dom/mms/MmsMessage.h"
 #include "nsIPowerManagerService.h"
 
 using namespace mozilla::dom::sms;
@@ -275,6 +276,7 @@ NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(ThirdPartyUtil, Init)
 NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(nsISmsService, SmsServicesFactory::CreateSmsService)
 NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(nsISmsDatabaseService, SmsServicesFactory::CreateSmsDatabaseService)
 NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(nsIMmsService, MmsServicesFactory::CreateMmsService)
+NS_GENERIC_FACTORY_CONSTRUCTOR(MmsMessage)
 NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(nsIPowerManagerService,
                                          PowerManagerService::GetInstance)
 NS_GENERIC_FACTORY_CONSTRUCTOR(SmsRequestManager)
@@ -776,6 +778,7 @@ NS_DEFINE_NAMED_CID(SMS_SERVICE_CID);
 NS_DEFINE_NAMED_CID(SMS_DATABASE_SERVICE_CID);
 NS_DEFINE_NAMED_CID(SMS_REQUEST_MANAGER_CID);
 NS_DEFINE_NAMED_CID(MMS_SERVICE_CID);
+NS_DEFINE_NAMED_CID(MMS_MESSAGE_CID);
 NS_DEFINE_NAMED_CID(NS_POWERMANAGERSERVICE_CID);
 
 static nsresult
@@ -1044,6 +1047,7 @@ static const mozilla::Module::CIDEntry kLayoutCIDs[] = {
   { &kSMS_DATABASE_SERVICE_CID, false, NULL, nsISmsDatabaseServiceConstructor },
   { &kSMS_REQUEST_MANAGER_CID, false, NULL, SmsRequestManagerConstructor },
   { &kMMS_SERVICE_CID, false, NULL, nsIMmsServiceConstructor },
+  { &kMMS_MESSAGE_CID, false, NULL, MmsMessageConstructor },
   { &kNS_POWERMANAGERSERVICE_CID, false, NULL, nsIPowerManagerServiceConstructor },
   { NULL }
 };
@@ -1177,6 +1181,7 @@ static const mozilla::Module::ContractIDEntry kLayoutContracts[] = {
   { SMS_DATABASE_SERVICE_CONTRACTID, &kSMS_DATABASE_SERVICE_CID },
   { SMS_REQUEST_MANAGER_CONTRACTID, &kSMS_REQUEST_MANAGER_CID },
   { MMS_SERVICE_CONTRACTID, &kMMS_SERVICE_CID },
+  { MMS_MESSAGE_CONTRACTID, &kMMS_MESSAGE_CID },
   { POWERMANAGERSERVICE_CONTRACTID, &kNS_POWERMANAGERSERVICE_CID },
   { NULL }
 };

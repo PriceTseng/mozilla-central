@@ -1,0 +1,20 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#include "nsISupports.idl"
+
+interface nsIDOMBlob;
+
+[scriptable, uuid(3a39c120-f2b7-44ff-9cd2-a33ef0df27ff)]
+interface nsIDOMMozMmsAttachmentStorage : nsISupports
+{
+  [getter]
+  nsIDOMBlob getAttachment(in DOMString aName);
+
+  [setter]
+  void setAttachment(in DOMString  aName,
+                     in nsIDOMBlob aAttachment);
+
+  void deleteAttachment(in DOMString aName);
+};

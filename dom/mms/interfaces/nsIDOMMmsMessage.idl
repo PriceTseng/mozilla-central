@@ -1,0 +1,83 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#include "nsISupports.idl"
+
+interface nsIDOMDocument;
+interface nsIDOMMozMmsAttachmentStorage;
+
+%{C++
+#define MMS_MESSAGE_CID { 0x14150ecc, 0x2495, 0x4813, { 0xa8, 0x60, 0xe4, 0xa3, 0xc0, 0x85, 0x84, 0xca } }
+#define MMS_MESSAGE_CONTRACTID "@mozilla.org/mms/mmsmessage;1"
+%}
+
+[scriptable, builtinclass, uuid(a41fe67e-6788-4795-b9d6-9bdbc154de5e)]
+interface nsIDOMMozMmsMessage : nsISupports
+{
+  const unsigned short PRIORITY_LOW    = 0;
+  const unsigned short PRIORITY_NORMAL = 1;
+  const unsigned short PRIORITY_HIGH   = 2;
+
+  readonly attribute long id;
+
+  /**
+   * "draft", "sending", "sent", or "received"
+   */
+  readonly attribute DOMString delivery;
+
+  readonly attribute DOMString from;
+
+  /**
+   * All recipients: to, cc or bcc. An array of strings or null.
+   */
+  [implicit_jscontext]
+  readonly attribute jsval recipients;
+
+  /**
+   * Read as array of strings or null, write as a string or an array of strings
+   * or null.
+   */
+  [implicit_jscontext]
+           attribute jsval to;
+  [implicit_jscontext]
+           attribute jsval cc;
+  [implicit_jscontext]
+           attribute jsval bcc;
+
+  [implicit_jscontext]
+  readonly attribute jsval date;
+
+  /**
+   * A Date object or relative time in seconds.
+   */
+  [implicit_jscontext]
+           attribute jsval expiry;
+  [implicit_jscontext]
+           attribute jsval deliveryTime;
+
+           attribute DOMString subject;
+
+  /**
+   * "personal", "advertisement", "informational", "auto" and other
+   * string value.
+   */
+           attribute DOMString messageClass;
+
+           attribute unsigned short priority;
+
+           attribute boolean deliveryReport;
+           attribute boolean readReport;
+
+           attribute boolean adaptationAllowed;
+           attribute boolean drmContent;
+
+  readonly attribute boolean read;
+
+  /**
+   * Presentation(root) part of the message. Null if unavailable.
+   */
+           attribute nsIDOMDocument contentDocument;
+
+  readonly attribute nsIDOMMozMmsAttachmentStorage attachments;
+};

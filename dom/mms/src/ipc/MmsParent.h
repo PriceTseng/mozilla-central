@@ -24,6 +24,7 @@ public:
   MmsParent();
 
   NS_OVERRIDE virtual bool RecvHasSupport(bool* aHasSupport);
+  NS_OVERRIDE virtual bool RecvSendDummy(const MmsMessageData &aData);
 
 protected:
   virtual void ActorDestroy(ActorDestroyReason why);

@@ -11,7 +11,7 @@ namespace dom {
 namespace mms {
 
 bool
-MmsChild::RecvNotifyDummy()
+MmsChild::RecvNotifyDummy(const MmsMessageData &aData)
 {
   return true;
 }
