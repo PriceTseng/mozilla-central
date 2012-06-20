@@ -29,6 +29,7 @@ EXPORTS_NAMESPACES = mozilla/dom/mms
 EXPORTS_mozilla/dom/mms = \
   Constants.h \
   MmsChild.h \
+  MmsDeliveryEventData.h \
   MmsMessage.h \
   MmsParent.h \
   MmsServicesFactory.h \
@@ -36,8 +37,12 @@ EXPORTS_mozilla/dom/mms = \
   $(NULL)
 
 CPPSRCS = \
+  Constants.cpp \
   MmsAttachmentStorage.cpp \
   MmsChild.cpp \
+  MmsDeliveryEvent.cpp \
+  MmsDeliveryEventData.cpp \
+  MmsEvent.cpp \
   MmsIPCService.cpp \
   MmsManager.cpp \
   MmsMessage.cpp \

@@ -14,7 +14,13 @@ namespace mms {
 class MmsChild : public PMmsChild
 {
 public:
-  NS_OVERRIDE virtual bool RecvNotifyDummy(const MmsMessageData &aData);
+  NS_OVERRIDE virtual bool RecvNotifyReceivedMessage(const MmsMessageData &aData);
+  NS_OVERRIDE virtual bool RecvNotifySentMessage(const MmsMessageData &aData);
+  NS_OVERRIDE virtual bool RecvNotifyDeliveredMessage(const MmsMessageData &aData,
+                                                      const nsString &aOriginator);
+  NS_OVERRIDE virtual bool RecvNotifyReadMessage(const MmsMessageData &aData,
+                                                 const nsString &aOriginator);
+  NS_OVERRIDE virtual bool RecvNotifyCancelledMessage(const MmsMessageData &aData);
 };
 
 } // namespace mms

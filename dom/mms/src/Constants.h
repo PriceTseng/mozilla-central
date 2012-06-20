@@ -9,6 +9,13 @@ namespace mozilla {
 namespace dom {
 namespace mms {
 
+// Defined in the .cpp
+extern const char* kMmsReceivedObserverTopic;
+extern const char* kMmsSentObserverTopic;
+extern const char* kMmsDeliveredObserverTopic;
+extern const char* kMmsReadObserverTopic;
+extern const char* kMmsCancelledObserverTopic;
+
 #define DELIVERY_RECEIVED NS_LITERAL_STRING("received")
 #define DELIVERY_SENT     NS_LITERAL_STRING("sent")
 #define DELIVERY_SENDING  NS_LITERAL_STRING("sending")

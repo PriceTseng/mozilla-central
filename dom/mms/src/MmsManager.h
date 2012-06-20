@@ -6,9 +6,12 @@
 #define mozilla_dom_mms_MmsManager_h
 
 #include "nsIDOMMmsManager.h"
+#include "nsIObserver.h"
 #include "nsDOMEventTargetHelper.h"
+#include "nsDOMEvent.h"
 
 class nsIDOMMozMmsMessage;
+class nsIMmsDeliveryEventData;
 
 namespace mozilla {
 namespace dom {
@@ -16,9 +19,11 @@ namespace mms {
 
 class MmsManager : public nsDOMEventTargetHelper
                  , public nsIDOMMozMmsManager
+                 , public nsIObserver
 {
 public:
   NS_DECL_ISUPPORTS
+  NS_DECL_NSIOBSERVER
   NS_DECL_NSIDOMMOZMMSMANAGER
 
   NS_FORWARD_NSIDOMEVENTTARGET(nsDOMEventTargetHelper::)
@@ -28,6 +33,20 @@ public:
 
   void Init(nsPIDOMWindow *aWindow);
   void Shutdown();
+
+private:
+  nsresult DispatchTrustedMmsEventToSelf(const nsAString& aEventName,
+                                         nsIDOMMozMmsMessage* aMessage);
+  nsresult DispatchTrustedMmsDeliveryEventToSelf(const nsAString& aEventName,
+                                                 nsIMmsDeliveryEventData* aData);
+  nsresult DispatchTrustedEventToSelf(const nsAString& aEventName,
+                                      nsRefPtr<nsDOMEvent>& aEvent);
+
+  NS_DECL_EVENT_HANDLER(received)
+  NS_DECL_EVENT_HANDLER(sent)
+  NS_DECL_EVENT_HANDLER(delivered)
+  NS_DECL_EVENT_HANDLER(read)
+  NS_DECL_EVENT_HANDLER(cancelled)
 };
 
 } // namespace mms

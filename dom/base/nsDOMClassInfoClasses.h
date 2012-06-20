@@ -412,6 +412,8 @@ DOMCI_CLASS(MozSmsCursor)
 DOMCI_CLASS(MozMmsManager)
 DOMCI_CLASS(MozMmsMessage)
 DOMCI_CLASS(MozMmsAttachmentStorage)
+DOMCI_CLASS(MozMmsEvent)
+DOMCI_CLASS(MozMmsDeliveryEvent)
 
 DOMCI_CLASS(MozConnection)
 DOMCI_CLASS(MozMobileConnection)

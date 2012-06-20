@@ -1,0 +1,21 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#include "nsISupports.idl"
+
+interface nsIDOMMozMmsMessage;
+
+%{C++
+#define MMS_DELIVERY_EVENT_DATA_CID { 0x36bb204a, 0xc125, 0x4c31, { 0x81, 0xdc, 0xb2, 0xfe, 0x45, 0x56, 0xf2, 0x08 } }
+#define MMS_DELIVERY_EVENT_DATA_CONTRACTID "@mozilla.org/mms/mmsdeliveryeventdata;1"
+%}
+
+[scriptable, uuid(1016b12d-66e5-41a5-b220-850f14ba5791)]
+interface nsIMmsDeliveryEventData : nsISupports
+{
+  [binaryname(MessageMoz)]
+  attribute nsIDOMMozMmsMessage message;
+
+  attribute DOMString           originator;
+};

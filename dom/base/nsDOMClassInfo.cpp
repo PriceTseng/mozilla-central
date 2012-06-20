@@ -514,6 +514,8 @@ using mozilla::dom::indexedDB::IDBWrapperCache;
 #include "nsIDOMMmsManager.h"
 #include "nsIDOMMmsMessage.h"
 #include "nsIDOMMmsAttachmentStorage.h"
+#include "nsIDOMMmsEvent.h"
+#include "nsIDOMMmsDeliveryEvent.h"
 #include "nsIDOMConnection.h"
 #include "nsIDOMMobileConnection.h"
 #include "USSDReceivedEvent.h"
@@ -1493,6 +1495,12 @@ static nsDOMClassInfoData sClassInfoData[] = {
                            DOM_DEFAULT_SCRIPTABLE_FLAGS)
 
   NS_DEFINE_CLASSINFO_DATA(MozMmsAttachmentStorage, nsDOMGenericSH,
+                           DOM_DEFAULT_SCRIPTABLE_FLAGS)
+
+  NS_DEFINE_CLASSINFO_DATA(MozMmsEvent, nsDOMGenericSH,
+                           DOM_DEFAULT_SCRIPTABLE_FLAGS)
+
+  NS_DEFINE_CLASSINFO_DATA(MozMmsDeliveryEvent, nsDOMGenericSH,
                            DOM_DEFAULT_SCRIPTABLE_FLAGS)
 
   NS_DEFINE_CLASSINFO_DATA(MozConnection, nsDOMGenericSH,
@@ -4169,6 +4177,16 @@ nsDOMClassInfo::Init()
 
   DOM_CLASSINFO_MAP_BEGIN(MozMmsAttachmentStorage, nsIDOMMozMmsAttachmentStorage)
      DOM_CLASSINFO_MAP_ENTRY(nsIDOMMozMmsAttachmentStorage)
+  DOM_CLASSINFO_MAP_END
+
+  DOM_CLASSINFO_MAP_BEGIN(MozMmsEvent, nsIDOMMozMmsEvent)
+     DOM_CLASSINFO_MAP_ENTRY(nsIDOMMozMmsEvent)
+     DOM_CLASSINFO_EVENT_MAP_ENTRIES
+  DOM_CLASSINFO_MAP_END
+
+  DOM_CLASSINFO_MAP_BEGIN(MozMmsDeliveryEvent, nsIDOMMozMmsDeliveryEvent)
+     DOM_CLASSINFO_MAP_ENTRY(nsIDOMMozMmsDeliveryEvent)
+     DOM_CLASSINFO_EVENT_MAP_ENTRIES
   DOM_CLASSINFO_MAP_END
 
   DOM_CLASSINFO_MAP_BEGIN(MozConnection, nsIDOMMozConnection)

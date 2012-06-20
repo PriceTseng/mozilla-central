@@ -41,7 +41,15 @@ sync protocol PMms {
     manager PContent;
 
 child:
-    NotifyDummy(MmsMessageData aData);
+    NotifyReceivedMessage(MmsMessageData aData);
+
+    NotifySentMessage(MmsMessageData aData);
+
+    NotifyDeliveredMessage(MmsMessageData aData, nsString aOriginator);
+
+    NotifyReadMessage(MmsMessageData aData, nsString aOriginator);
+
+    NotifyCancelledMessage(MmsMessageData aData);
 
 parent:
     sync HasSupport()

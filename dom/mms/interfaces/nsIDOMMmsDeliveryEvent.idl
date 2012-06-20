@@ -1,0 +1,17 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#include "nsISupports.idl"
+#include "nsIDOMEvent.idl"
+
+interface nsIDOMMozMmsMessage;
+
+[scriptable, builtinclass, uuid(a62da3d2-eceb-46a0-9f41-9e4fc9cbca77)]
+interface nsIDOMMozMmsDeliveryEvent : nsIDOMEvent
+{
+  [binaryname(MessageMoz)]
+  readonly attribute nsIDOMMozMmsMessage message;
+
+  readonly attribute DOMString           originator;
+};
