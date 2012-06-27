@@ -1,0 +1,16 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#include "nsISupports.idl"
+
+[scriptable, uuid(772e61eb-c2b6-42b3-9a44-52bbe3e96527)]
+interface nsIDOMMozMmsAttachment : nsISupports
+{
+  attribute DOMString name;
+
+  attribute DOMString contentType;
+
+  [implicit_jscontext]
+  attribute jsval content;
+};

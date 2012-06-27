@@ -4,6 +4,7 @@
 
 #include "MmsAttachmentStorage.h"
 #include "nsIDOMClassInfo.h"
+#include "nsIDOMMmsAttachment.h"
 
 DOMCI_DATA(MozMmsAttachmentStorage, mozilla::dom::mms::MmsAttachmentStorage)
 
@@ -26,14 +27,14 @@ MmsAttachmentStorage::MmsAttachmentStorage(int a)
 
 NS_IMETHODIMP
 MmsAttachmentStorage::GetAttachment(nsAString const &aName,
-                                    nsIDOMBlob** aAttachment)
+                                    nsIDOMMozMmsAttachment** aAttachment)
 {
   return NS_ERROR_NOT_IMPLEMENTED;
 }
 
 NS_IMETHODIMP
 MmsAttachmentStorage::SetAttachment(nsAString const &aName,
-                                    nsIDOMBlob* aAttachment)
+                                    nsIDOMMozMmsAttachment* aAttachment)
 {
   return NS_ERROR_NOT_IMPLEMENTED;
 }

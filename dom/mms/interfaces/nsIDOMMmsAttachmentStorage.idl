@@ -4,17 +4,17 @@
 
 #include "nsISupports.idl"
 
-interface nsIDOMBlob;
+interface nsIDOMMozMmsAttachment;
 
 [scriptable, uuid(3a39c120-f2b7-44ff-9cd2-a33ef0df27ff)]
 interface nsIDOMMozMmsAttachmentStorage : nsISupports
 {
   [getter]
-  nsIDOMBlob getAttachment(in DOMString aName);
+  nsIDOMMozMmsAttachment getAttachment(in DOMString aName);
 
   [setter]
   void setAttachment(in DOMString  aName,
-                     in nsIDOMBlob aAttachment);
+                     in nsIDOMMozMmsAttachment aAttachment);
 
   void deleteAttachment(in DOMString aName);
 };

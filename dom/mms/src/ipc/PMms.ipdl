@@ -17,6 +17,13 @@ struct ExpiryValue {
   PRUint64 timestamp;
 };
 
+struct Attachment {
+  nsString name;
+  nsString contentType;
+  bool isString;
+  nsString content;
+};
+
 struct MmsMessageData {
   PRInt32       id;
   DeliveryState delivery;
@@ -35,6 +42,7 @@ struct MmsMessageData {
   bool          adaptationAllowed;
   bool          drmContent;
   bool          read;
+  Attachment[]  attachments;
 };
 
 sync protocol PMms {

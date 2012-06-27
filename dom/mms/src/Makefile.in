@@ -38,6 +38,7 @@ EXPORTS_mozilla/dom/mms = \
 
 CPPSRCS = \
   Constants.cpp \
+  MmsAttachment.cpp \
   MmsAttachmentStorage.cpp \
   MmsChild.cpp \
   MmsDeliveryEvent.cpp \
